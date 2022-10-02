@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="autumn">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body class="grid place-items-center p-8">
+    <header class="mb-8">
+      <h1 class="text-4xl">Crime Wine bubbles Subscription</h1>
+    </header>
+
+    <main
+      class="mb-8 border-2 border-black p-8 pb-4"
+      id="step"
+      x-data="{ step: 'step1', winetype: 'both', quantity: '6', howoften : 'weekly', amount : '4'}"
+    >
+      <header class="border-b border-slate-500 pt-4 pb-8">
+        <p class="pb-2">Configure your subscription in 4 easy steps:</p>
+        <ul class="">
+          <li
+            class="inline border-b border-black pr-2"
+            :class="{'border-black border-b': step === 'step1' }"
+          >
+            1: Bubbles type
+          </li>
+          <li
+            class="inline pr-2"
+            :class="{'border-black border-b': step === 'step2' }"
+          >
+            2: Quantity
+          </li>
+          <li
+            class="inline pr-2"
+            :class="{'border-black border-b': step === 'step3' }"
+          >
+            3: Delivery frequency
+          </li>
+          <li
+            class="inline pr-2"
+            :class="{'border-black border-b': step === 'step4' }"
+          >
+            4: Confirmation
+          </li>
+        </ul>
+      </header>
+
+      <section class="border-b border-slate-500 py-8">
+        <!-- step 1 -->
+        <div id="step1" x-show="step === 'step1'">
+          <p class="mb-4">
+            So: You love bubbles, and want bubbles delivered to your doorstep on
+            subscription!
+          </p>
+          <p class="mb-4">What type of bubbles?</p>
+          <form id="winesubscriptionform" class="grid grid-cols-3">
+            <div>
+              <input
+                type="radio"
+                id="white"
+                name="winetype"
+                value="white"
+                x-model="winetype"
+              />
+              <label for="white">White</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="pink"
+                name="winetype"
+                value="pink"
+                x-model="winetype"
+              />
+              <label for="pink">Pink</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="three"
+                name="winetype"
+                value="three"
+                x-model="winetype"
+              />
+              <label for="three">Both!</label>
+            </div>
+          </form>
+        </div>
+        <!-- step 2-->
+        <div id="step2" x-show="step === 'step2'" style="display: none">
+          <p>How many bottles per delivery?</p>
+          <label for="quantity">Choose how many bottles per delivery:</label>
+          <select
+            name="quantity"
+            id="quantity"
+            x-model="quantity"
+            form="winesubscriptionform"
+          >
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="9">9</option>
+          </select>
+        </div>
+        <!-- step 3 -->
+        <div id="step3" x-show="step === 'step3'" style="display: none">
+          <p>How often do you want the bubbles delivered?</p>
+          <label for="howoften">Delivery frequency:</label>
+          <select
+            name="howoften"
+            id="howoften"
+            x-model="howoften"
+            form="winesubscriptionform"
+          >
+            <option value="month">Once a month</option>
+            <option value="threemonths">Every third month</option>
+          </select>
+        </div>
+        <!-- step 4-->
+        <div
+          id="step4"
+          x-show="step === 'step4'"
+          class="prose"
+          style="display: none"
+        >
+          <h3>Your subscription:</h3>
+
+          <p x-show="winetype === 'white'" style="display: none">
+            White bubbles only
+          </p>
+          <p x-show="winetype === 'pink'" style="display: none">
+            Pink bubbles only
+          </p>
+          <p x-show="winetype === 'three'">
+            Both white and pink bubbles - what a party!
+          </p>
+
+          <p>
+            <span x-text="`${quantity} bottles delivered`"
+              >6 bottles delivered</span
+            >
+            <span x-show="howoften === 'weekly'">every week:-)</span>
+            <span x-show="howoften === 'fortnight'" style="display: none"
+              >every second week:-)</span
+            >
+            <span x-show="howoften === 'month'" style="display: none"
+              >in the beginning of every month:-)</span
+            >
+            <span x-show="howoften === 'threemonths'" style="display: none"
+              >in the beginning of every third month:-)</span
+            >
+          </p>
+
+          <p>
+            <span>Price: </span
+            ><span class="font-bold" x-text="`${quantity * 199 + 49} DKK `"
+              >499 DKK </span
+            ><span>per delivery including transport</span>
+          </p>
+        </div>
+      </section>
+
+      <footer class="flex justify-between py-8">
+        <div class="">
+          <button
+            id="knap2"
+            class="btn btn-primary"
+            x-on:click="step = 'step1'"
+            x-show="step === 'step2'"
+            style="display: none"
+          >
+            ← Bubbles type
+          </button>
+          <button
+            id="knap3"
+            class="btn btn-primary"
+            x-on:click="step = 'step2'"
+            x-show="step === 'step3'"
+            style="display: none"
+          >
+            ← Quantity
+          </button>
+          <button
+            id="knap4"
+            class="btn btn-primary"
+            x-on:click="step = 'step3'"
+            x-show="step === 'step4'"
+            style="display: none"
+          >
+            ← Frequency
+          </button>
+        </div>
+        <div class="">
+          <button
+            id="knap2"
+            class="btn btn-primary"
+            x-on:click="step = 'step2'"
+            x-show="step === 'step1'"
+          >
+            Quantity →
+          </button>
+          <button
+            id="knap3"
+            class="btn btn-primary"
+            x-on:click="step = 'step3'"
+            x-show="step === 'step2'"
+            style="display: none"
+          >
+            Frequency →
+          </button>
+          <button
+            id="knap4"
+            class="btn btn-primary"
+            x-on:click="step = 'step4'"
+            x-show="step === 'step3'"
+            style="display: none"
+          >
+            Confirmation →
+          </button>
+          <button
+            id="knap4"
+            class="btn btn-success"
+            x-on:click="step = 'step4'"
+            x-show="step === 'step4'"
+            style="display: none"
+          >
+            Put subscription in basket!
+          </button>
+        </div>
+      </footer>
+    </main>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
